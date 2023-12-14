@@ -15,6 +15,8 @@ Simple CVSS 3.1 Calculator is a Chrome extension that helps you calculate CVSS 3
 Once loaded, click on extension icon.
 
 
+![immagine](https://github.com/jackkongjr/simple_cvss_calculator_chrome_extension/assets/36534362/b6d81106-80c5-462b-a7e0-6fd94ae2b7b2)
+
 
 ## License
 
