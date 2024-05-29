@@ -2,6 +2,7 @@
 
 Simple CVSS 3.1 Calculator is a Chrome extension that helps you calculate CVSS 3.1 attack vector string.
 
+Available at: https://chromewebstore.google.com/detail/simple-cvss-31-calculator/mefgdhhmnamfkbmokffbhjhhdlblibdg
 
 
 ## How to load with developer mode in Chrome
