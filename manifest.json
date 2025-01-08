@@ -1,8 +1,8 @@
 {
     "manifest_version": 3,
-    "name": "Simple CVSS 3.1 Calculator Chrome Extension",
-    "version": "1.0",
-    "description": "Simple tool to calculate 3.1 CVSS Base Score",
+    "name": "Simple CVSS Calculator Chrome Extension",
+    "version": "2.0",
+    "description": "Simple tool to calculate 4.0/3.1 CVSS Base Score",
     "action": {
         "default_popup": "popup.html",
         "default_icon": {
