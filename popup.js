@@ -1,7 +1,41 @@
 
-
+import { Vector,CVSS40 } from './cvss40.js';
+  
 document.addEventListener('DOMContentLoaded', function () {
-     
+
+ 
+
+
+
+    const radioButtons = document.querySelectorAll('input[name="btnradio"]');
+    radioButtons.forEach(radio => {
+        radio.addEventListener('click', toggleDivs);
+
+ 
+      });
+    
+
+    function toggleDivs() {
+        const radio1 = document.getElementById('btnradio1');
+        const radio2 = document.getElementById('btnradio2');
+        const div1 = document.getElementById('cvss40');
+        const div2 = document.getElementById('cvss31');
+    
+        if (radio1.checked) {
+          div1.style.display = 'block';
+          div2.style.display = 'none';
+          cvss_version_selected = 4;
+        } else if (radio2.checked) {
+          div1.style.display = 'none';
+          div2.style.display = 'block';
+          cvss_version_selected = 3.1;
+        }
+      }
+
+
+
+      let cvss_version_selected=1;   // 3.1 or 4   
+
 
     let cvss = {
 
@@ -19,12 +53,42 @@ document.addEventListener('DOMContentLoaded', function () {
 
     let vectorString = '';
 
+    const radios2 = document.querySelectorAll('input[type=radio]:checked');
+    for (const radio of radios2) {
+        cvss[radio.name] = radio.value;
+    }
+
+
+
     const radios = document.querySelectorAll('input[type=radio]');
+    
+
     for (const radio of radios) {
     radio.onclick = (e) => {
+
+        
         cvss[e.target.name] = e.target.value;
-        calculateCvss(cvss);
+
+        if(cvss_version_selected==3.1)
+            calculateCvss(cvss);
+        else
+            calculateCvss4(cvss);
     }
+    }
+
+
+    function calculateCvss4(cvss){
+        vectorString = `CVSS:4.0/AV:${cvss['AV4']}/AC:${cvss['AC4']}/AT:${cvss['S4']}/PR:${cvss['PR4']}/UI:${cvss['UI4']}/VC:${cvss['C4']}/VI:${cvss['I4']}/VA:${cvss['A4']}/SC:${cvss['C4S']}/SI:${cvss['I4S']}/SA:${cvss['A4S']}`;
+        const newVector = new CVSS40(vectorString)
+
+        let calculated_score =  newVector.calculateScore()
+
+        var vs = document.getElementById('vectorString4').innerHTML = vectorString;
+        var score = document.querySelector('#score4'); ;
+
+        score.innerHTML = calculated_score;
+        score.className = newVector.calculateSeverityRating(calculated_score).toLowerCase();
+        
     }
 
     function calculateCvss(cvss){

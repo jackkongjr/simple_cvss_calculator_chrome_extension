@@ -1,222 +1,477 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CVSS 3.1 Calculator</title>
-    <link rel="stylesheet" href="bootstrap.min.css" > 
-    <script src="popup.js"></script>
+    <title>CVSS 4.0/3.1 Base Calculator</title>
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <script src="css40.js"></script>
+    <script type="module" src="popup.js"></script>
     <style>
-
-        .none{
-
-            background-color: green;
+        .none {
+            background-color: #498af2;
         }
-        .low{
-
+        .low {
             background-color: #498af2;
             color: white;
         }
-
-        .medium{
-
+        .medium {
             background-color: #f9a009;
             color: white;
         }
-
-        .high{
-
+        .high {
             background-color: #df3d03;
             color: white;
         }
-
-        .critical{
-
+        .critical {
             background-color: #cc0500;
             color: white;
         }
-
-        .in{
+        .in {
             display: none;
         }
-
-        .selected{
-
+        .selected {
             background-color: skyblue;
-
         }
-        
         body {
             margin: 0px;
         }
     </style>
 </head>
-
 <body>
- 
-                <div class="modal-body" style="min-width: 600px;">
-                    <fieldset id="baseMetricGroup" class="border p-2">
-                        <legend id="baseMetricGroup_Legend"   class="w-auto">CVSS 3.1 Calculator - Base Score</legend>
-                    <div class="float-left">
-                         CVSS:  <b id="score" style="padding:10px">Not calculated</b>    <b id="vectorString">CVSS 3.1</b>
-                    </div>
-                    <hr>
+    <div class="m-2">
+        <div class="btn-group" role="group">
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+            <label class=" btn btn-sm btn-outline-info" for="btnradio1">CVSS 4.0</label>
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+            <label class=" btn btn-sm btn-outline-info" for="btnradio2">CVSS 3.1</label>
+        </div>
+    </div>
+    <!-- CVSS 4.0 CALCULATOR -->
+    <div class="modal-body" style="min-width: 600px; " id="cvss40">
+        <fieldset id="baseMetricGroup4" class="border p-2">
+            <legend id="baseMetricGroup_Legend4" class="w-auto"><strong>CVSS 4.0</strong> Calculator - Base Metrics
+            </legend>
+            <div class="float-left">
+                CVSS: <b id="score4" style="padding:10px">Not calculated</b> <b id="vectorString4">CVSS 4.0</b>
+            </div>
+            <hr>
+            <div class="d-flex justify-content-center">
+                <span class="text-success fw-bold"> Exploitability Metrics</span>
+            </div>
+            <table class="table">
+                <tr>
+                    <td>
+                        <span class="text-primary fw-bold">
+                            Attack Vector (AV)</span>
+                    </td>
+                    <td>
                         <div class="row">
-                                <div class="form-group ">
-                                        <label for="AV" id="AV_Heading">Attack Vector (AV)</label>
-                                         <input type="radio" class="btn-check" name="AV" value="N" id="AV_N" autocomplete="off" >
-                                         <label class="btn btn-outline-primary btn-sm" for="AV_N"> Network (N) </label>
-                                         <input type="radio" class="btn-check" name="AV" value="A" id="AV_A" autocomplete="off" >
-                                         <label class="btn btn-outline-primary btn-sm" for="AV_A"> Adiacent (A) </label>
-                                         <input type="radio" class="btn-check" name="AV" value="L" id="AV_L" autocomplete="off" >
-                                         <label class="btn btn-outline-primary btn-sm" for="AV_L"> Local (L) </label>
-                                         <input type="radio" class="btn-check" name="AV" value="P"  id="AV_P" autocomplete="off" >
-                                         <label class="btn btn-outline-primary btn-sm" for="AV_P"> Phisical (P) </label>
-                                 
-                                </div>
-                            </div> 
-                        <hr>
-                        <div class="row">       
-                                <div class="form-group">
-                                    <label for="AC" id="AC_Heading">Attack Complexity (AC)</label>
-
-                                   <input type="radio" class="btn-check" name="AC" value="L" id="AC_L" autocomplete="off" >
-                                    <label class="btn btn-outline-primary btn-sm" for="AC_L"> Low (L) </label>
-                                   
-                                    <input type="radio" class="btn-check" name="AC" value="H" id="AC_H" autocomplete="off" >
-                                    <label class="btn btn-outline-primary btn-sm" for="AC_H"> High (H) </label>
-                                 </div>
-          
-                        </div> 
-                        
-                        <hr>
-
-                        <div class="row">
-
-                                <div class="form-group">
-                                    <label for="PR" id="PR_Heading">Privileges Required (PR)</label>
-
-                                    <input type="radio" class="btn-check" name="PR" value="N" id="PR_N" autocomplete="off"  >
-                                    <label class="btn btn-outline-primary btn-sm" for="PR_N"> None (N) </label>
-
-                                    <input type="radio" class="btn-check" name="PR" value="L" id="PR_L" autocomplete="off"  >
-                                    <label class="btn btn-outline-primary btn-sm" for="PR_L"> Low (L) </label>
-
-                                    <input type="radio" class="btn-check" name="PR" value="H" id="PR_H" autocomplete="off"  >
-                                    <label class="btn btn-outline-primary btn-sm" for="PR_H"> High (H) </label>
-                                </div>
-
-                        </div> 
-                        
-                        <hr>
-
-                        <div class="row">
-
-                                <div class="form-group">
-                                    <label for="UI" id="UI_Heading">User Interaction (UI)</label>
-                                    <input type="radio" class="btn-check" name="UI" value="N" id="UI_N" autocomplete="off"  >
-                                    <label class="btn btn-outline-primary btn-sm" for="UI_N"> None (N) </label>
-
-                                    <input type="radio" class="btn-check" name="UI" value="R" id="UI_R" autocomplete="off"  >
-                                    <label class="btn btn-outline-primary btn-sm" for="UI_R"> Required (R) </label>
-
-                                </div>
-                 
-
-                        </div> 
-                        
-                        <hr>
-    
-                        <div class="row">
-    
-                
-                                <div class="form-group">
-                                    <label for="S" id="S_Heading">Scope (S)</label>
-
-                                    <input type="radio" class="btn-check" name="S" value="U" id="S_U" autocomplete="off"  >
-                                    <label class="btn btn-outline-primary btn-sm" for="S_U"> Scope (U) </label>
-
-                                    <input type="radio" class="btn-check" name="S" value="C" id="S_C" autocomplete="off"  >
-                                    <label class="btn btn-outline-primary btn-sm" for="S_C"> Scope (C) </label>
- 
-                                </div>
-
-                        </div> 
-                    
-                        <hr>
-    
-                        <div class="row">
-        
-                                <div class="form-group">
-                                    <label for="C" id="C_Heading">Confidentiality (C)</label>
-
-                                    <input type="radio" class="btn-check" name="C" value="N" id="C_N" autocomplete="off"  >
-                                    <label class="btn btn-outline-primary btn-sm" for="C_N"> None (N) </label>
-
-                                    <input type="radio" class="btn-check" name="C" value="L" id="C_L" autocomplete="off"  >
-                                    <label class="btn btn-outline-primary btn-sm" for="C_L"> Low (L) </label>
-
-                                    <input type="radio" class="btn-check" name="C" value="H" id="C_H" autocomplete="off"  >
-                                    <label class="btn btn-outline-primary btn-sm" for="C_H"> High (H) </label>
-
- 
-                                </div>
-
-                        </div> 
-                
-                        <hr>
-    
-                        <div class="row">
-                
-                                <div class="form-group">
-                                    <label for="I" id="I_Heading">Integrity (I)</label>
-                                    <input type="radio" class="btn-check" name="I" value="N" id="I_N" autocomplete="off"  >
-                                    <label class="btn btn-outline-primary btn-sm" for="I_N"> None (N) </label>
-
-                                    <input type="radio" class="btn-check" name="I" value="L" id="I_L" autocomplete="off"  >
-                                    <label class="btn btn-outline-primary btn-sm" for="I_L"> Low (L) </label>
-
-                                    <input type="radio" class="btn-check" name="I" value="H" id="I_H" autocomplete="off"  >
-                                    <label class="btn btn-outline-primary btn-sm" for="I_H"> High (H) </label>
-
-                                </div>
-  
-                        </div> 
-            
-                        <hr>
-    
-                        <div class="row">
-
-                                <div class="form-group">
-                                    <label for="A" id="A_Heading">Availability (A)</label>
-                                    <input type="radio" class="btn-check" name="A" value="N" id="A_N" autocomplete="off"  >
-                                    <label class="btn btn-outline-primary btn-sm" for="A_N"> None (N) </label>
-
-                                    <input type="radio" class="btn-check" name="A" value="L" id="A_L" autocomplete="off"  >
-                                    <label class="btn btn-outline-primary btn-sm" for="A_L"> Low (L) </label>
-
-                                    <input type="radio" class="btn-check" name="A" value="H" id="A_H" autocomplete="off"  >
-                                    <label class="btn btn-outline-primary btn-sm" for="A_H"> High (H) </label>
-
-
-                                </div>
-                                
+                            <div class="form-group ">
+                                <label for="AV4" id="AV_Heading4"></label>
+                                <input type="radio" class="btn-check" name="AV4" value="N" id="AV_N4" checked
+                                    autocomplete="off">
+                                <label class="btn btn-outline-primary btn-sm" for="AV_N4"> Network (N) </label>
+                                <input type="radio" class="btn-check" name="AV4" value="A" id="AV_A4"
+                                    autocomplete="off">
+                                <label class="btn btn-outline-primary btn-sm" for="AV_A4"> Adiacent (A) </label>
+                                <input type="radio" class="btn-check" name="AV4" value="L" id="AV_L4"
+                                    autocomplete="off">
+                                <label class="btn btn-outline-primary btn-sm" for="AV_L4"> Local (L) </label>
+                                <input type="radio" class="btn-check" name="AV4" value="P" id="AV_P4"
+                                    autocomplete="off">
+                                <label class="btn btn-outline-primary btn-sm" for="AV_P4"> Phisical (P) </label>
+                            </div>
                         </div>
-                
-                        
-                 
-                    </fieldset>
-                
-                    
-
-                </div>
-                 
-
-
-
-    
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="text-primary fw-bold">
+                            Attack Complexity (AC)</span>
+                    </td>
+                    <td>
+                        <div class="row">
+                            <div class="form-group">
+                                <label for="AC4" id="AC_Heading4"></label>
+                                <input type="radio" class="btn-check" name="AC4" value="L" id="AC_L4" checked
+                                    autocomplete="off">
+                                <label class="btn btn-outline-primary btn-sm" for="AC_L4"> Low (L) </label>
+                                <input type="radio" class="btn-check" name="AC4" value="H" id="AC_H4"
+                                    autocomplete="off">
+                                <label class="btn btn-outline-primary btn-sm" for="AC_H4"> High (H) </label>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="text-primary fw-bold">
+                            Attack Requirements (AT)</span>
+                    </td>
+                    <td>
+                        <div class="row">
+                            <div class="form-group">
+                                <label for="S4" id="S_Heading4"></label>
+                                <input type="radio" class="btn-check" name="S4" value="N" id="S_U4" autocomplete="off"
+                                    checked>
+                                <label class="btn btn-outline-primary btn-sm" for="S_U4"> None (N) </label>
+                                <input type="radio" class="btn-check" name="S4" value="P" id="S_C4" autocomplete="off">
+                                <label class="btn btn-outline-primary btn-sm" for="S_C4"> Present (P) </label>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="text-primary fw-bold">
+                            Privileges Required (PR)</span>
+                    </td>
+                    <td>
+                        <div class="row">
+                            <div class="form-group">
+                                <label for="PR4" id="PR_Heading4"></label>
+                                <input type="radio" class="btn-check" name="PR4" value="N" id="PR_N4" checked
+                                    autocomplete="off">
+                                <label class="btn btn-outline-primary btn-sm" for="PR_N4"> None (N) </label>
+                                <input type="radio" class="btn-check" name="PR4" value="L" id="PR_L4"
+                                    autocomplete="off">
+                                <label class="btn btn-outline-primary btn-sm" for="PR_L4"> Low (L) </label>
+                                <input type="radio" class="btn-check" name="PR4" value="H" id="PR_H4"
+                                    autocomplete="off">
+                                <label class="btn btn-outline-primary btn-sm" for="PR_H4"> High (H) </label>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="text-primary fw-bold">
+                            User Interaction (UI)</span>
+                    </td>
+                    <td>
+                        <div class="row">
+                            <div class="form-group">
+                                <label for="UI4" id="UI_Heading4"></label>
+                                <input type="radio" class="btn-check" name="UI4" value="N" id="UI_N4" autocomplete="off"
+                                    checked>
+                                <label class="btn btn-outline-primary btn-sm" for="UI_N4"> None (N) </label>
+                                <input type="radio" class="btn-check" name="UI4" value="P" id="UI_P4"
+                                    autocomplete="off">
+                                <label class="btn btn-outline-primary btn-sm" for="UI_P4"> Passive (P) </label>
+                                <input type="radio" class="btn-check" name="UI4" value="A" id="UI_A4"
+                                    autocomplete="off">
+                                <label class="btn btn-outline-primary btn-sm" for="UI_A4"> Active (A) </label>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <div class="d-flex justify-content-center">
+                <span class="text-success fw-bold"> Vulnerable System Impact Metrics</span>
+            </div>
+            <table class="table">
+                <tr>
+                    <td>
+                        <span class="text-primary fw-bold">
+                            Confidentiality (VC)</span>
+                    </td>
+                    <td>
+                        <div class="row">
+                            <div class="form-group">
+                                <label for="C4" id="C_Heading4"></label>
+                                <input type="radio" class="btn-check" name="C4" value="N" id="C_N4" autocomplete="off"
+                                    checked>
+                                <label class="btn btn-outline-primary btn-sm" for="C_N4"> None (N) </label>
+                                <input type="radio" class="btn-check" name="C4" value="L" id="C_L4" autocomplete="off">
+                                <label class="btn btn-outline-primary btn-sm" for="C_L4"> Low (L) </label>
+                                <input type="radio" class="btn-check" name="C4" value="H" id="C_H4" autocomplete="off">
+                                <label class="btn btn-outline-primary btn-sm" for="C_H4"> High (H) </label>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="text-primary fw-bold">
+                            Integrity (VI)</span>
+                    </td>
+                    <td>
+                        <div class="row">
+                            <div class="form-group">
+                                <label for="I4" id="I_Heading4"></label>
+                                <input type="radio" class="btn-check" name="I4" value="N" id="I_N4" autocomplete="off"
+                                    checked>
+                                <label class="btn btn-outline-primary btn-sm" for="I_N4"> None (N) </label>
+                                <input type="radio" class="btn-check" name="I4" value="L" id="I_L4" autocomplete="off">
+                                <label class="btn btn-outline-primary btn-sm" for="I_L4"> Low (L) </label>
+                                <input type="radio" class="btn-check" name="I4" value="H" id="I_H4" autocomplete="off">
+                                <label class="btn btn-outline-primary btn-sm" for="I_H4"> High (H) </label>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="text-primary fw-bold">
+                            Availability (VA)</span>
+                    </td>
+                    <td>
+                        <div class="row">
+                            <div class="form-group">
+                                <label for="A4" id="A_Heading4"></label>
+                                <input type="radio" class="btn-check" name="A4" value="N" id="A_N4" autocomplete="off"
+                                    checked>
+                                <label class="btn btn-outline-primary btn-sm" for="A_N4"> None (N) </label>
+                                <input type="radio" class="btn-check" name="A4" value="L" id="A_L4" autocomplete="off">
+                                <label class="btn btn-outline-primary btn-sm" for="A_L4"> Low (L) </label>
+                                <input type="radio" class="btn-check" name="A4" value="H" id="A_H4" autocomplete="off">
+                                <label class="btn btn-outline-primary btn-sm" for="A_H4"> High (H) </label>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <div class="d-flex justify-content-center">
+                <span class="text-success fw-bold"> Subsequent System Impact Metrics</span>
+            </div>
+            <table class="table">
+                <tr>
+                    <td>
+                        <span class="text-primary fw-bold">
+                            Confidentiality (SC)</span>
+                    </td>
+                    <td>
+                        <div class="row">
+                            <div class="form-group">
+                                <label for="C4S" id="C_Heading4S"></label>
+                                <input type="radio" class="btn-check" name="C4S" value="N" id="C_N4S" checked
+                                    autocomplete="off">
+                                <label class="btn btn-outline-primary btn-sm" for="C_N4S"> None (N) </label>
+                                <input type="radio" class="btn-check" name="C4S" value="L" id="C_L4S"
+                                    autocomplete="off">
+                                <label class="btn btn-outline-primary btn-sm" for="C_L4S"> Low (L) </label>
+                                <input type="radio" class="btn-check" name="C4S" value="H" id="C_H4S"
+                                    autocomplete="off">
+                                <label class="btn btn-outline-primary btn-sm" for="C_H4S"> High (H) </label>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="text-primary fw-bold"> Integrity (SI)</span>
+                    </td>
+                    <td>
+                        <div class="row">
+                            <div class="form-group">
+                                <label for="I4S" id="I_Heading4"></label>
+                                <input type="radio" class="btn-check" name="I4S" value="N" id="I_N4S" checked
+                                    autocomplete="off">
+                                <label class="btn btn-outline-primary btn-sm" for="I_N4S"> None (N) </label>
+                                <input type="radio" class="btn-check" name="I4S" value="L" id="I_L4S"
+                                    autocomplete="off">
+                                <label class="btn btn-outline-primary btn-sm" for="I_L4S"> Low (L) </label>
+                                <input type="radio" class="btn-check" name="I4S" value="H" id="I_H4S"
+                                    autocomplete="off">
+                                <label class="btn btn-outline-primary btn-sm" for="I_H4S"> High (H) </label>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="text-primary fw-bold">
+                            Availability (SA)</span>
+                    </td>
+                    <td>
+                        <div class="row">
+                            <div class="form-group">
+                                <label for="A4S" id="A_Heading4S"></label>
+                                <input type="radio" class="btn-check" name="A4S" value="N" id="A_N4S" checked
+                                    autocomplete="off">
+                                <label class="btn btn-outline-primary btn-sm" for="A_N4S"> None (N) </label>
+                                <input type="radio" class="btn-check" name="A4S" value="L" id="A_L4S"
+                                    autocomplete="off">
+                                <label class="btn btn-outline-primary btn-sm" for="A_L4S"> Low (L) </label>
+                                <input type="radio" class="btn-check" name="A4S" value="H" id="A_H4S"
+                                    autocomplete="off">
+                                <label class="btn btn-outline-primary btn-sm" for="A_H4S"> High (H) </label>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+    </div>
+    <!-- CVSS 3.1 CALCULATOR -->
+    <div class="modal-body" style="min-width: 600px;display:none" id="cvss31">
+        <fieldset id="baseMetricGroup" class="border p-2">
+            <legend id="baseMetricGroup_Legend" class="w-auto"><strong>CVSS 3.1</strong> Calculator - Base Score
+            </legend>
+            <div class="float-left">
+                CVSS: <b id="score" style="padding:10px">Not calculated</b> <b id="vectorString">CVSS 3.1</b>
+            </div>
+            <table class="table">
+                <tr>
+                    <td>
+                        <span class="text-primary fw-bold">
+                            Attack Vector (AV)</span>
+                    </td>
+                    <td>
+                        <div class="row">
+                            <div class="form-group ">
+                                <label for="AV" id="AV_Heading"></label>
+                                <input type="radio" class="btn-check" name="AV" value="N" id="AV_N" autocomplete="off"
+                                    checked>
+                                <label class="btn btn-outline-primary btn-sm" for="AV_N"> Network (N) </label>
+                                <input type="radio" class="btn-check" name="AV" value="A" id="AV_A" autocomplete="off">
+                                <label class="btn btn-outline-primary btn-sm" for="AV_A"> Adiacent (A) </label>
+                                <input type="radio" class="btn-check" name="AV" value="L" id="AV_L" autocomplete="off">
+                                <label class="btn btn-outline-primary btn-sm" for="AV_L"> Local (L) </label>
+                                <input type="radio" class="btn-check" name="AV" value="P" id="AV_P" autocomplete="off">
+                                <label class="btn btn-outline-primary btn-sm" for="AV_P"> Phisical (P) </label>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="text-primary fw-bold">
+                            Attack Complexity (AC)</span>
+                    </td>
+                    <td>
+                        <div class="row">
+                            <div class="form-group">
+                                <label for="AC" id="AC_Heading"></label>
+                                <input type="radio" class="btn-check" name="AC" value="L" id="AC_L" autocomplete="off"
+                                    checked>
+                                <label class="btn btn-outline-primary btn-sm" for="AC_L"> Low (L) </label>
+                                <input type="radio" class="btn-check" name="AC" value="H" id="AC_H" autocomplete="off">
+                                <label class="btn btn-outline-primary btn-sm" for="AC_H"> High (H) </label>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="text-primary fw-bold">
+                            Privileges Required (PR)</span>
+                    </td>
+                    <td>
+                        <div class="row">
+                            <div class="form-group">
+                                <label for="PR" id="PR_Heading"></label>
+                                <input type="radio" class="btn-check" name="PR" value="N" id="PR_N" autocomplete="off"
+                                    checked>
+                                <label class="btn btn-outline-primary btn-sm" for="PR_N"> None (N) </label>
+                                <input type="radio" class="btn-check" name="PR" value="L" id="PR_L" autocomplete="off">
+                                <label class="btn btn-outline-primary btn-sm" for="PR_L"> Low (L) </label>
+                                <input type="radio" class="btn-check" name="PR" value="H" id="PR_H" autocomplete="off">
+                                <label class="btn btn-outline-primary btn-sm" for="PR_H"> High (H) </label>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="text-primary fw-bold">
+                            User Interaction (UI)</span>
+                    </td>
+                    <td>
+                        <div class="row">
+                            <div class="form-group">
+                                <label for="UI" id="UI_Heading"></label>
+                                <input type="radio" class="btn-check" name="UI" value="N" id="UI_N" autocomplete="off"
+                                    checked>
+                                <label class="btn btn-outline-primary btn-sm" for="UI_N"> None (N) </label>
+                                <input type="radio" class="btn-check" name="UI" value="R" id="UI_R" autocomplete="off">
+                                <label class="btn btn-outline-primary btn-sm" for="UI_R"> Required (R) </label>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="text-primary fw-bold">
+                            Scope (S)</span>
+                    </td>
+                    <td>
+                        <div class="row">
+                            <div class="form-group">
+                                <label for="S" id="S_Heading"></label>
+                                <input type="radio" class="btn-check" name="S" value="U" id="S_U" autocomplete="off"
+                                    checked>
+                                <label class="btn btn-outline-primary btn-sm" for="S_U"> Scope (U) </label>
+                                <input type="radio" class="btn-check" name="S" value="C" id="S_C" autocomplete="off">
+                                <label class="btn btn-outline-primary btn-sm" for="S_C"> Scope (C) </label>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="text-primary fw-bold">
+                            Confidentiality (C)</span>
+                    </td>
+                    <td>
+                        <div class="row">
+                            <div class="form-group">
+                                <label for="C" id="C_Heading"></label>
+                                <input type="radio" class="btn-check" name="C" value="N" id="C_N" autocomplete="off"
+                                    checked>
+                                <label class="btn btn-outline-primary btn-sm" for="C_N"> None (N) </label>
+                                <input type="radio" class="btn-check" name="C" value="L" id="C_L" autocomplete="off">
+                                <label class="btn btn-outline-primary btn-sm" for="C_L"> Low (L) </label>
+                                <input type="radio" class="btn-check" name="C" value="H" id="C_H" autocomplete="off">
+                                <label class="btn btn-outline-primary btn-sm" for="C_H"> High (H) </label>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="text-primary fw-bold">
+                            Integrity (I)</span>
+                    </td>
+                    <td>
+                        <div class="row">
+                            <div class="form-group">
+                                <label for="I" id="I_Heading"></label>
+                                <input type="radio" class="btn-check" name="I" value="N" id="I_N" autocomplete="off"
+                                    checked>
+                                <label class="btn btn-outline-primary btn-sm" for="I_N"> None (N) </label>
+                                <input type="radio" class="btn-check" name="I" value="L" id="I_L" autocomplete="off">
+                                <label class="btn btn-outline-primary btn-sm" for="I_L"> Low (L) </label>
+                                <input type="radio" class="btn-check" name="I" value="H" id="I_H" autocomplete="off">
+                                <label class="btn btn-outline-primary btn-sm" for="I_H"> High (H) </label>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="text-primary fw-bold">
+                            Availability (A)</span>
+                    </td>
+                    <td>
+                        <div class="row">
+                            <div class="form-group">
+                                <label for="A" id="A_Heading"></label>
+                                <input type="radio" class="btn-check" name="A" value="N" id="A_N" autocomplete="off"
+                                    checked>
+                                <label class="btn btn-outline-primary btn-sm" for="A_N"> None (N) </label>
+                                <input type="radio" class="btn-check" name="A" value="L" id="A_L" autocomplete="off">
+                                <label class="btn btn-outline-primary btn-sm" for="A_L"> Low (L) </label>
+                                <input type="radio" class="btn-check" name="A" value="H" id="A_H" autocomplete="off">
+                                <label class="btn btn-outline-primary btn-sm" for="A_H"> High (H) </label>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+    </div>
 </body>
-
 </html>

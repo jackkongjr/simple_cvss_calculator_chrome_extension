@@ -1,3 +1,13 @@
+
+
+# Updates from CVSS 4.0
+ - Now it supports CVSS 4.0 Base Metrics Calculator
+
+
+
+
+
+
 # Simple CVSS 3.1 Calculator - Chrome Extension
 
 Simple CVSS 3.1 Calculator is a Chrome extension that helps you calculate CVSS 3.1 attack vector string.
