@@ -2,6 +2,7 @@
 
 # Updates from CVSS 4.0
  - Now it supports CVSS 4.0 Base Metrics Calculator
+ - published at https://chromewebstore.google.com/detail/simple-cvss-calculator-ch/dlncngjdcklpnfblfboohpmpoheechkb
 
 
 
